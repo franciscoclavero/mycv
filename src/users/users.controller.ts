@@ -7,6 +7,7 @@ import {
   Get,
   Patch,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -18,19 +19,24 @@ export class UsersController {
 
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
-    const user = this.usersService.create(body.email, body.password);
-    return user;
+    this.usersService.create(body.email, body.password);
   }
 
   @Get('/:id')
   findUser(@Param('id') id: string) {
     const user = this.usersService.findOne(parseInt(id));
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     return user;
   }
 
   @Get()
   findAllUsers(@Query('email') email: string) {
     const users = this.usersService.find(email);
+    if (!users) {
+      throw new NotFoundException('User not found');
+    }
     return users;
   }
 
