@@ -1,10 +1,20 @@
+### Login
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+  "email": "user5@teste.com",
+  "password": "senhaUser5"
+}
+
+
 ### Create a new user
 POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-  "email": "user3@teste.com",
-  "password": "senhaUser3"
+  "email": "user5@teste.com",
+  "password": "senhaUser5"
 }
 
 ### Find a user
