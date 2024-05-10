@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
@@ -15,7 +20,7 @@ export class UsersService {
 
   findOne(id: number) {
     if (!id) {
-      return null;
+      throw new HttpException(null, HttpStatus.NOT_FOUND);
     }
     return this.repo.findOneBy({ id });
   }
